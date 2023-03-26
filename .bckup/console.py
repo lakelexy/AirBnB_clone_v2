@@ -19,16 +19,16 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-        'BaseModel': BaseModel, 'User': User, 'Place': Place,
-        'State': State, 'City': City, 'Amenity': Amenity,
-        'Review': Review
-    }
+               'BaseModel': BaseModel, 'User': User, 'Place': Place,
+               'State': State, 'City': City, 'Amenity': Amenity,
+               'Review': Review
+              }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-        'number_rooms': int, 'number_bathrooms': int,
-        'max_guest': int, 'price_by_night': int,
-        'latitude': float, 'longitude': float
-    }
+             'number_rooms': int, 'number_bathrooms': int,
+             'max_guest': int, 'price_by_night': int,
+             'latitude': float, 'longitude': float
+            }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -115,29 +115,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        try:
-            if not args:
-                print("** class name missing **")
-                return
-            _args = args.split(' ')
-            new_instance = eval("{}()".format(_args[0]))
-            params = _args[1:]
-            for param in params:
-                key, value = param.split("=")
-                try:
-                    attribute = HBNBCommand.verify_attribute(value)
-                    print(attribute)
-                except:
-                    continue
-                if not attribute:
-                    continue
-                setattr(new_instance, key, attribute)
-            new_instance.save()
-            print(new_instance.id)
-        except SyntaxError:
-            print("*** class name missing ***")
-        except NameError:
-            print("*** class name doesn't exist ***")
+        if not args:
+            print("** class name missing **")
+            return
+        elif args not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+        new_instance = HBNBCommand.classes[args]()
+        storage.save()
+        print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -332,21 +319,6 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
-
-    @classmethod
-    def verify_attribute(cls, attribute):
-        """Verify if the attribute is correctly formatted"""
-        if attribute[0] is attribute[-1] in ['"', "'"]:
-            return attribute.strip('"\'').replace('_', ' ').replace('\\', '"')
-        else:
-            try:
-                try:
-                    return int(attribute)
-                except:
-                    return float(attribute)
-            except:
-                return None
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
