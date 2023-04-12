@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
-# a script to install and conf nginx
-
-#install nginx
+# script that sets up web servers for the deployment of web_static
 sudo apt-get update
-sudo apt-get install nginx -y
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 
-#creating repositories
-sudo mkdir -p /data/web_static/releases/test/
+sudo mkdir -p /data/
+sudo mkdir -p /data/web_static/
+sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
-
-#creating a dummy html page
-echo "<!DOCTYPE html>
-<html>
+sudo mkdir -p /data/web_static/releases/test/
+sudo touch /data/web_static/releases/test/index.html
+sudo echo "<html>
   <head>
   </head>
   <body>
@@ -19,14 +18,10 @@ echo "<!DOCTYPE html>
   </body>
 </html>" | sudo tee /data/web_static/releases/test/index.html
 
-#creating a symbolic link
-sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo ln -s -f /data/web_static/releases/test/ /data/web_static/current
 
-#changing directory name
 sudo chown -R ubuntu:ubuntu /data/
 
-#setting up the page to be served
-sudo sed -i '/server_name _;/a \ \tlocation /hbnb_static {\n\t\talias /data/web_static/current;\n\t}\n' /etc/nginx/sites-available/default
+sudo sed -i '/listen 80 default_server/a location /hbnb_static { alias /data/web_static/current/;}' /etc/nginx/sites-enabled/default
 
-#restart the server
 sudo service nginx restart
