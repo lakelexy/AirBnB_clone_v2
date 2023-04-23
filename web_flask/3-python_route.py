@@ -20,7 +20,7 @@ def index_hbnb():
 @app.route("/c/<text>", strict_slashes=False)
 def index_c(text):
     """a function to return c is fun"""
-    return 'C '+ text.replace('_',' ')
+    return 'C ' + text.replace('_',' ')
 
 
 @app.route('/python', strict_slashes=False)
