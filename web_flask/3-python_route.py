@@ -23,11 +23,11 @@ def index_c(text):
     return 'C ' + text.replace('_',' ')
 
 
-@app.route('/python', strict_slashes=False)
-@app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text='is cool'):
+@app.route('/Python', strict_slashes=False)
+@app.route('/Python/<text>', strict_slashes=False)
+def Python_is_cool(text='is cool'):
     """display "Python ", followed by the value of the text variable"""
-    return 'python ' + text.replace('_',' ')
+    return 'Python ' + text.replace('_',' ')
 
 
 if __name__ == "__main__":
