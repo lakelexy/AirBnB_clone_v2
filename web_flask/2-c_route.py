@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/pyhton3
 """a flask script to display “Hello HBNB!”"""
 from flask import Flask
 
@@ -20,8 +20,8 @@ def index_hbnb():
 
 @app.route("/c/<text>", strict_slashes=False)
 def index_c(text):
-    """a function to return c is fun"""
-    return 'C ' + text.replace('-',' ')
+    """a function to return C is fun"""
+    return 'C ' + text.replace('_', ' ')
 
 
 if __name__ == "__main__":
