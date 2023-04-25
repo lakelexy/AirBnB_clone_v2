@@ -19,14 +19,14 @@ def index_hbnb():
 
 @app.route("/c/<text>", strict_slashes=False)
 def index_c(text):
-    """a function to return c is fun"""
+    """a function to return C is fun"""
     return 'C ' + text.replace('_', ' ')
 
 
-@app.route('/Python', strict_slashes=False)
-@app.route('/Python/<text>', strict_slashes=False)
-def Python_is_cool(text='is cool'):
-    """display "Python ", followed by the value of the text variable"""
+@app.route('/python', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def python_is_cool(text='is cool'):
+    """display “Python ”, followed by the value of the text variable"""
     return 'Python ' + text.replace('_', ' ')
 
 
