@@ -21,7 +21,7 @@ def index_hbnb():
 @app.route("/c/<text>", strict_slashes=False)
 def index_c(text):
     """a function to return c is fun"""
-    return f'C {text.replace("_"," ")}'
+    return 'C ' + text.replace('-',' ')
 
 
 if __name__ == "__main__":
